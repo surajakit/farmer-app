@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ g.get('lang', 'en') }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jaikishan Jaijawan Agriculture App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+    <header>
+        <h1>Jaikishan Jaijawan Agriculture App</h1>
+        <nav>
+            <a href="{{ url_for('main_routes.index') }}">Home</a> |
+            <a href="{{ url_for('chatbot_routes.ask_bot') }}">Ask Expert</a> |
+            <a href="{{ url_for('market_routes.list_prices') }}">Market Prices</a> |
+            <a href="{{ url_for('forum_routes.forum_home') }}">Community Forum</a> |
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('auth_routes.logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth_routes.login') }}">Login</a> |
+                <a href="{{ url_for('auth_routes.register') }}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Jaikishan Jaijawan Agriculture App</p>
+    </footer>
+</body>
+</html>

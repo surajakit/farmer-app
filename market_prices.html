@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Market Prices</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Mandi</th>
+            <th>Crop</th>
+            <th>Variety</th>
+            <th>Arrival Date</th>
+            <th>Min Price</th>
+            <th>Max Price</th>
+            <th>Modal Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for price in prices %}
+        <tr>
+            <td>{{ price.mandi }}</td>
+            <td>{{ price.crop }}</td>
+            <td>{{ price.variety }}</td>
+            <td>{{ price.arrival_date.strftime('%Y-%m-%d') if price.arrival_date else '' }}</td>
+            <td>{{ price.min_price }}</td>
+            <td>{{ price.max_price }}</td>
+            <td>{{ price.modal_price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

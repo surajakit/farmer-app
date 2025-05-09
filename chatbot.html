@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Ask the Expert Bot</h1>
+<form id="chatbot-form">
+    <label for="question">Enter your farming question:</label><br>
+    <textarea id="question" name="question" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Ask</button>
+</form>
+<div id="answer" style="margin-top:20px; white-space: pre-wrap;"></div>
+
+<script>
+document.getElementById('chatbot-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const question = document.getElementById('question').value;
+    const answerDiv = document.getElementById('answer');
+    answerDiv.textContent = 'Loading...';
+
+    try {
+        const response = await fetch('/ask-bot/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ question })
+        });
+        const data = await response.json();
+        if (data.error) {
+            answerDiv.textContent = 'Error: ' + data.error;
+        } else {
+            answerDiv.textContent = data.answer;
+        }
+    } catch (error) {
+        answerDiv.textContent = 'Error: ' + error.message;
+    }
+});
+</script>
+{% endblock %}
