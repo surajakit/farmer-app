@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add New Crop</h1>
+<form method="post">
+    <label for="name">Crop Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="sowing_tips">Sowing Tips:</label><br>
+    <textarea id="sowing_tips" name="sowing_tips"></textarea><br><br>
+
+    <label for="pest_control">Pest Control:</label><br>
+    <textarea id="pest_control" name="pest_control"></textarea><br><br>
+
+    <label for="seasonal_tips">Seasonal Tips:</label><br>
+    <textarea id="seasonal_tips" name="seasonal_tips"></textarea><br><br>
+
+    <button type="submit">Add Crop</button>
+</form>
+<a href="{{ url_for('admin_routes.list_crops') }}">Back to Crop List</a>
+{% endblock %}

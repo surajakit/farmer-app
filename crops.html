@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Crop Information</h1>
+<a href="{{ url_for('admin_routes.add_crop') }}">Add New Crop</a>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Sowing Tips</th>
+            <th>Pest Control</th>
+            <th>Seasonal Tips</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for crop in crops %}
+        <tr>
+            <td>{{ crop.name }}</td>
+            <td>{{ crop.sowing_tips }}</td>
+            <td>{{ crop.pest_control }}</td>
+            <td>{{ crop.seasonal_tips }}</td>
+            <td>
+                <a href="{{ url_for('admin_routes.edit_crop', crop_id=crop.id) }}">Edit</a>
+                <form action="{{ url_for('admin_routes.delete_crop', crop_id=crop.id) }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
