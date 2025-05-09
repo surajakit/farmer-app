@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Post Details</h1>
+<p>{{ post.content }}</p>
+<p><small>Posted on {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</small></p>
+
+<h2>Replies</h2>
+<ul>
+    {% for reply in post.replies %}
+    <li>
+        {{ reply.content }} <br>
+        <small>Replied on {{ reply.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if current_user.is_authenticated %}
+<h3>Add a Reply</h3>
+<form method="post" action="{{ url_for('forum_routes.reply_post', post_id=post.id) }}">
+    <textarea name="content" required></textarea><br>
+    <button type="submit">Submit Reply</button>
+</form>
+{% else %}
+<p><a href="{{ url_for('auth_routes.login') }}">Login</a> to reply.</p>
+{% endif %}
+<a href="{{ url_for('forum_routes.forum_home') }}">Back to Forum</a>
+{% endblock %}

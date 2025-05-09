@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>New Forum Post</h1>
+<form method="post">
+    <textarea name="content" rows="5" cols="50" required></textarea><br>
+    <button type="submit">Post</button>
+</form>
+<a href="{{ url_for('forum_routes.forum_home') }}">Back to Forum</a>
+{% endblock %}
