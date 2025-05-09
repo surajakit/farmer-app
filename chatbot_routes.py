@@ -1,9 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template
 import openai
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 bp = Blueprint('chatbot_routes', __name__, url_prefix='/ask-bot')
 
